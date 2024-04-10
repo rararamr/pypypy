@@ -1,9 +1,10 @@
 import requests
 import pandas as pd
+import datetime
 
 url = "https://shopee.ph/api/v2/item/get_ratings"
-shop_id = "794361205"
-item_id = "24615502072"
+shop_id = "140163451"
+item_id = "5359370169"
 limit = 1
 offset = 0
 reviews = []
@@ -44,6 +45,11 @@ while True:
             # Sample ratings data (replace with your actual data)
             rating['rating_star'] = int(rating['rating_star'])
 
+            # Convert ctime to desired format
+            ctime_str = rating['ctime']
+            ctime_dt = datetime.datetime.fromtimestamp(int(ctime_str))
+            rating['ctime'] = ctime_dt.strftime("%Y-%m-%d %H:%M:%S")
+
             # Dictionary mapping ratings to satisfaction labels
             satisfaction_labels = {
                 1: "Very Dissatisfied",
@@ -71,11 +77,11 @@ df = pd.DataFrame(reviews)
 #df[['skin_suitability', 'absorption']] = df['comment'].str.extract('Skin Suitability:(.*?)\\nAbsorption:(.*?)\\n', expand=True)
 
 # select columns to keep in the final CSV file
-df = df[['orderid', 'itemid', 'userid', 'shopid', 'rating_star', 'satisfaction_label']]
+df = df[['orderid', 'itemid', 'userid', 'shopid', 'ctime', 'rating_star', 'satisfaction_label']]
 # df = df.to_string(index=False)
 
 
 print(df.columns)
 
 # save the DataFrame as a CSV file
-df.to_csv('ShopeeScrap9.csv', index=False)
+df.to_csv('ShopeeScrap13.csv', index=False)
