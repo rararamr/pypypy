@@ -2,8 +2,8 @@ import requests
 import pandas as pd
 
 url = "https://shopee.ph/api/v2/item/get_ratings"
-shop_id = "111741868"
-item_id = "23653306398"
+shop_id = "794361205"
+item_id = "24615502072"
 limit = 1
 offset = 0
 reviews = []
@@ -78,4 +78,4 @@ df = df[['orderid', 'itemid', 'userid', 'shopid', 'rating_star', 'satisfaction_l
 print(df.columns)
 
 # save the DataFrame as a CSV file
-df.to_csv('ShopeeScrap8.csv', index=False)
+df.to_csv('ShopeeScrap9.csv', index=False)
